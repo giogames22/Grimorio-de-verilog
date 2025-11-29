@@ -75,7 +75,7 @@ module contador_updown (
     output reg [3:0] q     // salida del contador
 );
 
-always @(posedge clk) begin
+always @(posedge clk) begin //recordatorio de que es un reset sincrono
     if (rst)
         q <= 4'd0;                 // reset a 0 (puedes cambiarlo si quieres)
     else begin
