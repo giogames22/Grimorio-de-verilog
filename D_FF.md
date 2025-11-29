@@ -38,4 +38,4 @@ endmodule
 - Mantén las imágenes o diagramas en la carpeta `images/`.
 
 ## Diagrama
-![Diagrama D Flip-Flop](images/dff_diagram.png)
+![Diagrama D Flip-Flop]([images/dff_diagram.png](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.analog.com%2Fen%2Fresources%2Fglossary%2Fd-flip-flop.html&psig=AOvVaw2IQ086A_DJVvGvo0aWzhP_&ust=1764464975390000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCNCkxrKWlpEDFQAAAAAdAAAAABAL))
