@@ -5,10 +5,7 @@ Este módulo Verilog implementa un **D Flip-Flop (D-FF)** activado por el flanco
 ## Descripción
 Un D Flip-Flop captura el valor presente en la entrada D en el instante del flanco positivo del reloj (clk) y lo mantiene en la salida Q hasta el siguiente flanco positivo. Este ejemplo es ideal para entender la lógica secuencial básica en Verilog.
 
-## Código (oculto por defecto)
-<details>
-<summary>Mostrar/ocultar código Verilog</summary>
-
+## Código
 ```verilog
 module D_ff (
   input clk,  // Entrada de la señal de Reloj (Clock). Control de sincronización. 
@@ -31,13 +28,14 @@ assign Qn = ~Q; // asignación de la salida negada de Q
 endmodule
 ```
 
-</details>
-
 ## Uso rápido
 1. Coloca d_ff.v en tu simulador o entorno de síntesis (por ejemplo, Icarus Verilog, ModelSim, etc.).  
 2. Simula aplicando estímulos a D y generando un reloj en clk para observar cómo Q sigue a D en cada flanco positivo.  
-3. Si quieres ejemplos de testbench, puedo añadir uno.
+3. Si quieres un testbench de ejemplo, te lo genero.
 
 ## Notas
-- Renombré el archivo Verilog a d_ff.v para evitar espacios en el nombre (recomendado).
-- Mantén las imágenes o diagramas en una carpeta images/ si deseas incluir diagramas de temporización.
+- Renombra el archivo Verilog a `d_ff.v` para evitar espacios en el nombre (recomendado).
+- Mantén las imágenes o diagramas en la carpeta `images/`.
+
+## Diagrama
+![Diagrama D Flip-Flop](images/dff_diagram.png)
