@@ -65,3 +65,27 @@ end
 
 endmodule
 ```
+## Ejemplo 4 contador ascendente/descendente
+
+```verilog
+module contador_updown (
+    input  wire clk,       // reloj
+    input  wire rst,       // reset síncrono
+    input  wire up_down,   // 1 = up (sube), 0 = down (baja)
+    output reg [3:0] q     // salida del contador
+);
+
+always @(posedge clk) begin
+    if (rst)
+        q <= 4'd0;                 // reset a 0 (puedes cambiarlo si quieres)
+    else begin
+        if (up_down)
+            q <= q + 1;            // cuenta ascendente
+        else
+            q <= q - 1;            // cuenta descendente
+    end
+end
+
+endmodule
+
+```
