@@ -7,7 +7,7 @@ Los contadores están formados internamente por flip-flops y una lógica de pró
 <img width="3999" height="1472" alt="imagen_2025-11-28_204035727" src="https://github.com/user-attachments/assets/8b1e24a4-efd9-425a-b3dd-11ca1feaca33" />
 
 ## Ejemplo 1: Contador ascendete con lógica de “próximo estado”
-
+Este estilo separa el cálculo del próximo valor (nVAL) del registro que guarda el valor actual.
 ```verilog
 //contador ascendente
 module contA(BCLK,BnRES,VAL);
@@ -29,7 +29,8 @@ always @(VAL)
 
 endmodule
 ```
-## Ejemplo 2: Contador simple (método directo)
+## Ejemplo 2: Contador ascendente simple (método directo)
+Este estilo es más corto y práctico para proyectos reales.
 ```verilog
 module contador_simple (
     input  wire clk,
@@ -42,6 +43,24 @@ always @(posedge clk) begin
         q <= 8'd0;       // reset
     else
         q <= q + 1;      // incrementa
+end
+
+endmodule
+```
+##Ejemplo 3 contador descendente simple
+
+```verilog
+module contador_descendente (
+    input  wire clk,     // reloj
+    input  wire rst,     // reset síncrono
+    output reg [3:0] q   // salida del contador
+);
+
+always @(posedge clk) begin
+    if (rst)
+        q <= 4'd15;      // inicia en 15
+    else
+        q <= q - 1;      // cuenta hacia abajo
 end
 
 endmodule
