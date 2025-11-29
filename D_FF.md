@@ -33,9 +33,84 @@ endmodule
 2. Simula aplicando estímulos a D y generando un reloj en clk para observar cómo Q sigue a D en cada flanco positivo.  
 3. Si quieres un testbench de ejemplo, te lo genero.
 
-## Notas
-- Renombra el archivo Verilog a `d_ff.v` para evitar espacios en el nombre (recomendado).
-- Mantén las imágenes o diagramas en la carpeta `images/`.
+## modulo de estimulo
+```verilog
+`timescale 1ns / 1ps
 
-## Diagrama
-![Diagrama D Flip-Flop]([images/dff_diagram.png](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.analog.com%2Fen%2Fresources%2Fglossary%2Fd-flip-flop.html&psig=AOvVaw2IQ086A_DJVvGvo0aWzhP_&ust=1764464975390000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCNCkxrKWlpEDFQAAAAAdAAAAABAL))
+module D_ff_tb;
+
+    // 1. Declaración de señales de prueba (reg para entradas, wire para salidas)
+    reg clk;
+    reg D;
+    wire Q;
+    wire Qn;
+
+    // Parámetros para la generación del reloj
+    parameter PERIOD = 10; // Período del reloj en ns (frecuencia de 100 MHz)
+    parameter HALF_PERIOD = PERIOD / 2;
+
+    // 2. Instancia del Módulo bajo Prueba (Device Under Test - DUT)
+    D_ff DUT (
+        .clk(clk),
+        .D(D),
+        .Q(Q),
+        .Qn(Qn)
+    );
+
+    // 3. Generación de la señal de reloj (clock)
+    initial begin
+        // Inicializar clk a 0
+        clk = 0;
+        // Generar un reloj continuo con un ciclo de trabajo del 50%
+        forever #(HALF_PERIOD) clk = ~clk;
+    end
+
+    // 4. Generación de la secuencia de estímulos (data)
+    initial begin
+        // Inicializar entradas de datos
+        D = 0;
+
+        // Iniciar la simulación y observar el reset (si existiera)
+        $display("Tiempo | clk | D | Q | Qn");
+        $monitor("%t |  %b  | %b | %b | %b", $time, clk, D, Q, Qn);
+        
+        // Estímulos de prueba:
+
+        // 0 ns: Valores iniciales
+        #2; 
+
+        // 2 ns: Aplicar D=1 (antes del primer flanco)
+        D = 1;
+        #8; // Esperar al primer flanco POSITIVO (10 ns)
+
+        // 10 ns (Flanco): Q debería cambiar de 0 a 1
+
+        // 12 ns: Cambiar D=0 (antes del segundo flanco)
+        D = 0;
+        #8; // Esperar al segundo flanco POSITIVO (20 ns)
+        
+        // 20 ns (Flanco): Q debería cambiar de 1 a 0
+
+        // 22 ns: Mantener D=0
+        #8; // Esperar al tercer flanco POSITIVO (30 ns)
+        
+        // 30 ns (Flanco): Q debería permanecer en 0
+
+        // 32 ns: Cambiar D=1
+        D = 1;
+        #8; // Esperar al cuarto flanco POSITIVO (40 ns)
+
+        // 40 ns (Flanco): Q debería cambiar de 0 a 1
+
+        // Finalizar la simulación
+        #20 $finish;
+    end
+
+    // Para guardar datos en un archivo VCD (opcional, para visualización de ondas)
+    initial begin
+        $dumpfile("D_ff.vcd");
+        $dumpvars(0, D_ff_tb);
+    end
+
+endmodule
+```
