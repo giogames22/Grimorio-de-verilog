@@ -47,7 +47,7 @@ end
 
 endmodule
 ```
-##Ejemplo 3 contador descendente simple
+## Ejemplo 3 contador descendente simple
 
 ```verilog
 module contador_descendente (
