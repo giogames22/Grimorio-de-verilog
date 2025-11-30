@@ -9,13 +9,13 @@ Funciona utilizando flip-flops conectados en paralelo, de manera que todos los b
 * Puede tener reset para inicializarlo.
 * Es la unidad básica de almacenamiento dentro de una CPU, microcontrolador, FPGA o ASIC.
 
-##🔹 Entradas típicas de un registro
+## 🔹 Entradas típicas de un registro
 
 * clk → reloj, controla cuándo se actualiza el registro.
 * rst → reset, pone el registro en cero.
 * d[N-1:0] → datos a guardar.
 
-##🔹 Salida típica
+## 🔹 Salida típica
 q[N-1:0] → datos almacenados (salida del registro).
 
 ## 🔹 Tipos de registro
@@ -24,3 +24,21 @@ q[N-1:0] → datos almacenados (salida del registro).
 * Registro de desplazamiento (shift register) → mueve los bits.
 * Registro circular → rota los bits.
 * Banco de registros → varios registros organizados.
+
+## registro parametrico con reset
+
+```verilog
+module registro #(parameter N = 3)(
+    input  wire clk, rst,
+    input  wire [N-1:0] d,
+    output reg  [N-1:0] q
+);
+
+always @(posedge clk or posedge rst) 
+    if (rst == 1)
+        q <= 0;
+    else 
+    q <= d;
+
+endmodule
+```
