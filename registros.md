@@ -57,3 +57,21 @@ always @(posedge clk or posedge rst)
 
 endmodule
 ```
+## registro parametrico con reset asincrono y enable
+
+```verilog
+module registro #(parameter N = 3)(
+    input  wire clk, rst, enable,
+    input  wire [N-1:0] d,
+    output reg  [N-1:0] q
+);
+
+always @(posedge clk or posedge rst) 
+    if (rst == 1)
+        q <= 0;
+
+    else if(enable == 1)   
+    q <= d;
+
+endmodule
+```
