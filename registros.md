@@ -25,7 +25,22 @@ q[N-1:0] → datos almacenados (salida del registro).
 * Registro circular → rota los bits.
 * Banco de registros → varios registros organizados.
 
-## registro parametrico con reset
+## registro parametrico simple
+
+```verilog
+module registro #(parameter N = 3)(
+    input  wire clk,
+    input  wire [N-1:0] d,
+    output reg  [N-1:0] q
+);
+
+always @(posedge clk) begin
+    q <= d;
+end
+
+endmodule
+```
+## registro parametrico con reset asincrono
 
 ```verilog
 module registro #(parameter N = 3)(
