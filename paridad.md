@@ -95,3 +95,48 @@ El flujo es continuo y se señaliza cuando cada byte está listo.
 | RTL              | 25 minutos      |
 | Testbench simple | 25 minutos      |
 | Debugging final  | 10 minutos      |
+
+
+```verilog
+module paridad #(
+    parameter n = 8
+) (
+    input  wire clk,
+    input  wire rstn,        // reset(este sera asincrono)
+    input  wire data_in,    // bit de entrada
+    input  wire bit_valido, // revisa si el dato de entrada es valido
+    output reg  paridad_out,// ssalida si 
+    output reg  byte_listo  // pulso 1 ciclo cuando el byte está listo
+);
+
+reg paridad_reg;
+reg [$clog2(n)-1:0] contador;
+
+
+always @(posedge clk or negedge rstn) begin
+    if (!rstn) begin
+        contador     <= 0;
+        paridad_out  <= 0;
+        paridad_reg  <= 1;   // iniciar paridad impar
+        byte_listo   <= 0;
+    end else begin
+        byte_listo <= 0; // por defecto
+
+        if (bit_valido) begin
+            paridad_reg <= paridad_reg ^ data_in; //la paridad va cambiar y tomar la xor entre la entrada in y la nueva paridad
+            contador    <= contador + 1;
+
+            if (contador == n-1) begin
+                paridad_out <= paridad_reg ^ data_in;
+                byte_listo  <= 1; // significa que ya acabo la cuenta
+                paridad_reg <= 1; // reiniciamos el contador para los nuevos bits
+                contador    <= 0; // reiniciar contador por que empezamos de nuevo
+            end
+        end
+    end
+end
+
+endmodule
+
+```
+
