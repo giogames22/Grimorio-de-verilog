@@ -86,14 +86,14 @@ El diseño se implementará como una **FSM (Finite State Machine)** y módulos a
 
 Al presionar **btn\_emergencia**:
 
-* Se **desactiva el motor** ($\text{bloqueo\_motor} = 1$).
+* Se **desactiva el motor y se bloquea** 
 * Se **abren las puertas** si es seguro.
 * Se **limpian las solicitudes**.
 * El sistema espera a que se **libere la emergencia**.
 
 #### 5.5 Indicadores
 
-* Mostrar **piso actual** en $\text{display\_piso}$.
+* Mostrar **piso actual** en leds o display
 * LED de **dirección** según sentido del motor.
 * Señal de **alarma** durante emergencia.
 
